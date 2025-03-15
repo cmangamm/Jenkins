@@ -28,6 +28,7 @@ sudo apt-get install jenkins
 **Note:** By default, Jenkins applicaion will not be accessible to the external world due to the inbound traffic restriction by AWS. Open port 8080 in the inbound traffic rules as show below.
 
 EC2 Instance > Click on Security > Security groups
-Add inbound traffic rules, just allow TCP port 8080, In my case i have allowed all traffic.
-<img width="704" alt="image" src="https://github.com/user-attachments/assets/d2212292-252f-43e4-8f89-49b5d6345818" />
+Add inbound traffic rules, just allow TCP port 8080, allow from My IP, In my case i have allowed Anywhere-IPV4
+<img width="899" alt="image" src="https://github.com/user-attachments/assets/6d117126-f5c4-47bf-a901-a5d856737dda" />
+
 
