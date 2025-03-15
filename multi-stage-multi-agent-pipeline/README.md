@@ -1,0 +1,1 @@
+Each stage runs in its own Docker container, ensuring that dependencies and configurations do not interfere with each other. This isolation helps prevent issues that can arise from conflicting versions of tools or libraries.
