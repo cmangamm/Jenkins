@@ -1,0 +1,1 @@
+A Simple Jenkins Pipeline to verify whether docker agent configuration working as expected.
