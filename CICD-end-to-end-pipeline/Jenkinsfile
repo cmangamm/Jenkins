@@ -3,8 +3,8 @@ pipeline{
     stages{
         stage('Clone Django repo')
         {
-            steps{
-                script{
+            script{
+                steps{
                     sh 'git clone https://github.com/shreys7/django-todo.git'
                 }
             }
