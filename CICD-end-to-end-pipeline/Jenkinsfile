@@ -1,27 +1,23 @@
-pipeline{
+pipeline {
     agent any
-    stages{
+    stages {
         stage('Clone Django repo')
         {
-            script{
-                steps{
-                    sh 'git clone https://github.com/shreys7/django-todo.git'
-                }
+            steps {
+                sh 'git clone https://github.com/shreys7/django-todo.git'
             }
         }
         stage('Build')
         {
-            script{
-                steps{
-                    // Build Docker image
-                    sh 'docker build -t my_django_app:${BUILD_NUMBER} .'
-                }
+            steps {
+                // Build Docker image
+                sh 'docker build -t my_django_app:${BUILD_NUMBER} .'
             }
         }
         stage('Push docker image to docker hub')
         {
-            script{
-                steps{
+            script {
+                steps {
                     withCredentials([usernamePassword(credentialsId: '9b9109bf-19dc-4f74-b527-fbc97b04966f', user: 'MY_USERNAME', pass: 'MY_PASSWORD')])
                     {
                         sh 'echo $MY_PASSWORD | docker login -u $MY_USERNAME --password-stdin'
@@ -31,5 +27,4 @@ pipeline{
             }
         }
     }
-
 }
