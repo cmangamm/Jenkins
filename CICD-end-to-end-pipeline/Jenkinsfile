@@ -33,7 +33,7 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: '9b9109bf-19dc-4f74-b527-fbc97b04966f', usernameVariable: 'MY_USERNAME', passwordVariable: 'MY_PASSWORD')])
                 {
                     sh 'echo $MY_PASSWORD | docker login -u $MY_USERNAME --password-stdin'
-                    sh 'docker push my_django_app:${BUILD_NUMBER}'
+                    sh 'docker push cmangamm/my_django_app:${BUILD_NUMBER}'
                 }
             }
         }
