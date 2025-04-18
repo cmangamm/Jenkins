@@ -4,7 +4,7 @@ pipeline {
         stage('Cleanup Workspace'){
             steps{
                 // Deletes all files and directories in the workspace
-                cleanWs()
+                sh 'rm -rf *'
             }
         }
         stage('Clone Django repo')
