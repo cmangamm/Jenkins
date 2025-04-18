@@ -14,7 +14,7 @@ pipeline{
             script{
                 steps{
                     // Build Docker image
-                    sh 'docker build -t my_django_app:${BUILD_NUMBER}' .
+                    sh 'docker build -t my_django_app:${BUILD_NUMBER} .'
                 }
             }
         }
