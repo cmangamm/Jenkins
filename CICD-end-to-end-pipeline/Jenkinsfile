@@ -25,7 +25,7 @@ pipeline {
         {
             steps {
                 // Build Docker image
-                sh 'docker build -t cmangamm/my_django_app:${BUILD_NUMBER} .'
+                sh 'docker build -t cmangamm/my_django_app:${BUILD_NUMBER} CICD-end-to-end-pipeline'
             }
         }
         stage('Push docker image to docker hub')
