@@ -4,24 +4,10 @@ pipeline {
         stage('Cleanup Workspace'){
             steps{
                 // Deletes all files and directories in the workspace
-                // sh 'rm -rf *'
                 sh 'docker system prune -a --volumes -f'
             }
         }
-        // stage('Clone Django Repo') {
-        //     steps {
-        //         script {
-        //             // Check if the directory exists
-        //             if (fileExists('django-todo')) {
-        //                 echo "Directory 'django-todo' already exists. Cleaning it up..."
-        //                 sh 'rm -rf django-todo' // Remove the directory
-        //             }
-        //         }
-        //         // Clone the repository
-        //         sh 'git clone https://github.com/shreys7/django-todo.git'
-        //     }
-        // }
-        stage('Build')
+        stage('Build docker image')
         {
             steps {
                 // Build Docker image
