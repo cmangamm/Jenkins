@@ -1,10 +1,9 @@
 pipeline {
     agent any
     stages {
-        stage('Cleanup Workspace'){
+        stage('Clean docker data'){
             steps{
                 // Deletes all files and directories in the workspace
-                sh 'rm -rf *'
                 sh 'docker system prune -a --volumes -f'
             }
         }
