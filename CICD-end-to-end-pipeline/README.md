@@ -72,7 +72,7 @@ To install Minikube on an EC2 instance, follow these steps:
 
    Install kubectl:
    ```
-   minikube start --driver=docker
+   sudo snap install kubectl --classic
    ```
 
 4) Start Minikube:
