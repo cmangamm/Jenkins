@@ -7,6 +7,13 @@ pipeline {
                 sh 'docker system prune -a --volumes -f'
             }
         }
+        stage('Checkout'){
+           steps {
+                git credentialsId: '9b9109bf-19dc-4f74-b527-fbc97b04966f', 
+                url: 'https://github.com/cmangamm/Jenkins',
+                branch: 'main'
+           }
+        }
         stage('Build docker image')
         {
             steps {
