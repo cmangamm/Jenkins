@@ -90,7 +90,31 @@ Verify crictl version
 ```
 crictl --version
 ```
-
+Clone cri-dockerd repo.
+```
+git clone https://github.com/Mirantis/cri-dockerd.git
+cd cri-dockerd
+```
+Build and install cri-dockerd:
+```
+mkdir bin
+go build -o bin/cri-dockerd
+sudo mv bin/cri-dockerd /usr/local/bin/
+```
+Copy Systemd service file
+```
+sudo cp packaging/systemd/* /etc/systemd/system/
+```
+Reload systemd and start service
+```
+sudo systemctl daemon-reload
+sudo systemctl enable cri-docker.service
+sudo systemctl start cri-docker.service
+```
+Check cri-dockerd service is running
+```
+sudo systemctl status cri-docker.service
+```
 4) Start Minikube:
   Run Minikube with the --vm-driver=none option (since EC2 instances don't support virtualization):
   
