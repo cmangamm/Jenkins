@@ -81,3 +81,10 @@ To install Minikube on an EC2 instance, follow these steps:
    ```
    minikube start --driver=docker
    ```
+
+# Install Argo AD
+This will create a new namespace, argocd, where Argo CD services and application resources will live.
+```
+kubectl create namespace argocd
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+```
