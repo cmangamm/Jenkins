@@ -70,6 +70,27 @@ Install Minikube:
   sudo mv minikube /usr/local/bin/
   ```
 
+Install conntrack utility, which is required for Kubernetes networking functionalities
+```
+sudo apt-get install -y conntrack
+```
+
+Verify conntrack version
+```
+conntrack --version
+```
+
+Install crictl (Container Runtime Interface CLI) tool is missing, which is required for Kubernetes to function properly.
+```
+wget https://github.com/kubernetes-sigs/cri-tools/releases/download/v1.26.0/crictl-v1.26.0-linux-amd64.tar.gz
+sudo tar -xvf crictl-v1.26.0-linux-amd64.tar.gz -C /usr/local/bin
+```
+
+Verify crictl version
+```
+crictl --version
+```
+
 4) Start Minikube:
   Run Minikube with the --vm-driver=none option (since EC2 instances don't support virtualization):
   
@@ -81,3 +102,4 @@ Install Minikube:
   ```
   minikube status
   ```
+
