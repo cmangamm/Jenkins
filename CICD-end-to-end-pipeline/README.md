@@ -76,6 +76,7 @@ To install Minikube on an EC2 instance, follow these steps:
    ```
 
 4) Start Minikube:
+
   Start a cluster using the docker driver:  
   ```
   minikube start --driver=docker
