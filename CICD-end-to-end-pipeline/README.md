@@ -42,88 +42,39 @@ To install Minikube on an EC2 instance, follow these steps:
 
 1) Launch an EC2 Instance:
      Use an Ubuntu Server AMI (e.g., Ubuntu 18.04 LTS or later).
-     Ensure the instance has at least 2 vCPUs and 2GB of memory (e.g., t3.micro).
+     Ensure the instance has at least 2 vCPUs and 2GB of memory (e.g., t3.small).
 
-3) SSH into EC2 instance
-4) Install Required Tools:
-  Update the package list:
-  ```
-  sudo apt-get update
-  ```
+2) SSH into EC2 instance
+3) Install Required tools
+   
+   Setup the Docker:
+   ```
+   sudo apt-get update
+   sudo apt-get install ca-certificates curl
+   sudo install -m 0755 -d /etc/apt/keyrings
+   sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+   sudo chmod a+r /etc/apt/keyrings/docker.asc
+   echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+   sudo apt-get update
+   sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+   sudo groupadd docker
+   sudo usermod -aG docker $USER
+   ```
 
-Install Docker
-  ```
-  sudo apt-get install docker.io -y
-  ```
-
-Install kubectl(Kubernetes CLI)
-  ```
-  curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
-  chmod +x ./kubectl
-  sudo mv ./kubectl /usr/local/bin/kubectl
-  ```
-
-Install Minikube:
-  ```
-  curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
-  chmod +x minikube
-  sudo mv minikube /usr/local/bin/
-  ```
-
-Install conntrack utility, which is required for Kubernetes networking functionalities
-```
-sudo apt-get install -y conntrack
-```
-
-Verify conntrack version
-```
-conntrack --version
-```
-
-Install crictl (Container Runtime Interface CLI) tool is missing, which is required for Kubernetes to function properly.
-```
-wget https://github.com/kubernetes-sigs/cri-tools/releases/download/v1.26.0/crictl-v1.26.0-linux-amd64.tar.gz
-sudo tar -xvf crictl-v1.26.0-linux-amd64.tar.gz -C /usr/local/bin
-```
-
-Verify crictl version
-```
-crictl --version
-```
-Clone cri-dockerd repo.
-```
-git clone https://github.com/Mirantis/cri-dockerd.git
-cd cri-dockerd
-```
-Build and install cri-dockerd:
-```
-mkdir bin
-go build -o bin/cri-dockerd
-sudo mv bin/cri-dockerd /usr/local/bin/
-```
-Copy Systemd service file
-```
-sudo cp packaging/systemd/* /etc/systemd/system/
-```
-Reload systemd and start service
-```
-sudo systemctl daemon-reload
-sudo systemctl enable cri-docker.service
-sudo systemctl start cri-docker.service
-```
-Check cri-dockerd service is running
-```
-sudo systemctl status cri-docker.service
-```
+   Install Minikube:
+   ```
+   curl -LO https://github.com/kubernetes/minikube/releases/latest/download/minikube-linux-amd64
+   sudo install minikube-linux-amd64 /usr/local/bin/minikube && rm minikube-linux-amd64
+   ```
+   Install kubectl:
+   ```
+   minikube start --driver=docker
+   ```
 4) Start Minikube:
-  Run Minikube with the --vm-driver=none option (since EC2 instances don't support virtualization):
-  
+  Start a cluster using the docker driver:  
   ```
-  sudo minikube start --vm-driver=none
+  minikube start --driver=docker
   ```
-
-5) Verify Minikube installation
-  ```
-  minikube status
-  ```
-
