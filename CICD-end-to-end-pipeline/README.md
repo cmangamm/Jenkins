@@ -64,15 +64,18 @@ To install Minikube on an EC2 instance, follow these steps:
    sudo usermod -aG docker $USER
    ```
 
+
    Install Minikube:
    ```
    curl -LO https://github.com/kubernetes/minikube/releases/latest/download/minikube-linux-amd64
    sudo install minikube-linux-amd64 /usr/local/bin/minikube && rm minikube-linux-amd64
    ```
+
    Install kubectl:
    ```
    minikube start --driver=docker
    ```
+
 4) Start Minikube:
   Start a cluster using the docker driver:  
   ```
